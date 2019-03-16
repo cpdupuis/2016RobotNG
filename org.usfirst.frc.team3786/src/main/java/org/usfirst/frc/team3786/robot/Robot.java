@@ -9,13 +9,13 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 import org.usfirst.frc.team3786.robot.commands.auto.DoNothing;
-import org.usfirst.frc.team3786.robot.commands.auto.DriveForwards;
-import org.usfirst.frc.team3786.robot.commands.drive.Drive;
+import org.usfirst.frc.team3786.robot.commands.drive.NeoDriveCommand;
 import org.usfirst.frc.team3786.robot.commands.shooting.ReleaseBall;
 import org.usfirst.frc.team3786.robot.config.robot.RobotConfig;
 import org.usfirst.frc.team3786.robot.config.ui.UIConfig;
 import org.usfirst.frc.team3786.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3786.robot.subsystems.ReleaseMechanism;
+import org.usfirst.frc.team3786.robot.utils.Gyroscope;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -33,7 +33,7 @@ public class Robot extends IterativeRobot {
 
     Command autonomousCommand;
     SendableChooser chooser;
-    
+    Gyroscope gyro = null;
     private CameraServer camera;
     
 //  Declaring Commands that deal with the Shooter
@@ -41,9 +41,8 @@ public class Robot extends IterativeRobot {
 	
 	
 //	Instantiating Commands that deal with the Drive Train
-	final Drive drive = new Drive();
+	final NeoDriveCommand drive = new NeoDriveCommand();
 	
-	final DriveForwards driveForward = new DriveForwards();
 	final DoNothing doNothing = new DoNothing();
 	
 	private final String[] splash = {
@@ -75,13 +74,13 @@ public class Robot extends IterativeRobot {
     	
     	camera = CameraServer.getInstance();
     	releaseBall = new ReleaseBall();
-    	
+        gyro = Gyroscope.getInstance();
+
         
         SmartDashboard.putData("Shoot Ball Command", releaseBall);
         
         chooser = new SendableChooser();
         chooser.addDefault("Do Nothing", doNothing);
-        chooser.addDefault("Drive", driveForward);
         
         SmartDashboard.putData("Select Autonomous", chooser);
         
@@ -144,8 +143,8 @@ public class Robot extends IterativeRobot {
      */
     double currentPosition;
     public void teleopPeriodic() {
+        gyro.run();
 		Scheduler.getInstance().run();
-		
 	}
     
     /**

@@ -1,8 +1,9 @@
 
 package org.usfirst.frc.team3786.robot.subsystems;
 
-import org.usfirst.frc.team3786.robot.commands.drive.Drive;
+import org.usfirst.frc.team3786.robot.commands.drive.NeoDriveCommand;
 import org.usfirst.frc.team3786.robot.config.robot.RobotConfig;
+import org.usfirst.frc.team3786.robot.utils.Gyroscope;
 
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -27,7 +28,12 @@ public class DriveTrain extends Subsystem {
 		differentialDrive = new DifferentialDrive(leftMotor, rightMotor);
 
 	}
-		
+	public void gyroStraight(double spd, double tgtHeading) {
+		double currHeading = Gyroscope.getInstance().getHeadingContinuous();
+		double error = tgtHeading - currHeading;
+		double correction = error / 90;
+		arcadeDrive(spd, correction);
+	}
 	
 	public static DriveTrain getInstance() {
 		if(instance == null)
@@ -35,7 +41,7 @@ public class DriveTrain extends Subsystem {
 		return instance;
 	}
 	
-	public void drive(double speed, double turn) {
+	public void arcadeDrive(double speed, double turn) {
 		differentialDrive.arcadeDrive(speed, turn);
 
 	}
@@ -49,7 +55,7 @@ public class DriveTrain extends Subsystem {
 	}
 	
     public void initDefaultCommand() {
-    	setDefaultCommand(new Drive());
+    	setDefaultCommand(NeoDriveCommand.getInstance());
     }
 }
 
