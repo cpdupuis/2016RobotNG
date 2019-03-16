@@ -50,12 +50,12 @@ public class NeoDriveCommand extends Command {
 		}
 		// going straight with gyro
 		if (useTargetHeading) {
-			DriveTrain.getInstance().gyroStraight(-throttle, targetHeading);
+			DriveTrain.getInstance().gyroStraight(throttle, targetHeading);
 			SmartDashboard.putBoolean("Straight with Gyro?", true);
 		}
 		// driving with turn
 		else {
-			DriveTrain.getInstance().arcadeDrive(-throttle, turn);
+			DriveTrain.getInstance().arcadeDrive(throttle, turn);
 			SmartDashboard.putBoolean("Straight with Gyro?", false);
 		}
 	}
