@@ -35,6 +35,7 @@ public class Robot extends IterativeRobot {
     SendableChooser chooser;
     
     private CameraServer camera;
+    public Gyroscope gyro = Gyroscope.getInstance();
     
 //  Declaring Commands that deal with the Shooter
 	private ReleaseBall releaseBall;
@@ -75,7 +76,8 @@ public class Robot extends IterativeRobot {
     	
     	camera = CameraServer.getInstance();
     	releaseBall = new ReleaseBall();
-    	
+        
+        gyro = Gyroscope.getInstance();
         
         SmartDashboard.putData("Shoot Ball Command", releaseBall);
         
@@ -144,6 +146,7 @@ public class Robot extends IterativeRobot {
      */
     double currentPosition;
     public void teleopPeriodic() {
+        gyro.run();
 		Scheduler.getInstance().run();
 		
 	}
