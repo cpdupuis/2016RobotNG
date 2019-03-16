@@ -32,6 +32,9 @@ public class DriveTrain extends Subsystem {
 		double currHeading = Gyroscope.getInstance().getHeadingContinuous();
 		double error = tgtHeading - currHeading;
 		double correction = error / 90;
+		System.err.println("Gyro error is: " + error + "Gyro correction is: " + correction);
+		SmartDashboard.putNumber("Gyro error", error);
+		SmartDashboard.putNumber("Gyro correction", correction);
 		arcadeDrive(spd, correction);
 	}
 	
