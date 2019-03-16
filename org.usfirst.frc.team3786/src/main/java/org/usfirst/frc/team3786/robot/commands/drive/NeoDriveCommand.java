@@ -11,7 +11,8 @@ public class NeoDriveCommand extends Command {
 
 	public static NeoDriveCommand instance;
 
-	private boolean isGyroCalibrated = false;
+	private boolean isGyroCalibrated = true;
+	double targetHeading = 0.0;
 
 	public static NeoDriveCommand getInstance() {
 		if (instance == null)
@@ -41,7 +42,6 @@ public class NeoDriveCommand extends Command {
         
 		double throttle = UIConfig.getInstance().getLeftStickY();
 		double turn = UIConfig.getInstance().getRightStickX();
-		double targetHeading = 0.0;
 		boolean useTargetHeading = false;
 		// driver wants to go straight, haven't started using currentHeading yet.
 		if (turn == 0 && throttle != 0 && isGyroCalibrated) {
