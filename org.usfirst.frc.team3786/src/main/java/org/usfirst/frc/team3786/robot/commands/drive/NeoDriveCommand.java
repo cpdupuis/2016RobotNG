@@ -44,7 +44,7 @@ public class NeoDriveCommand extends Command {
 		double turn = UIConfig.getInstance().getRightStickX();
 		boolean useTargetHeading = false;
 		// driver wants to go straight, haven't started using currentHeading yet.
-		if (turn == 0 && throttle != 0 && isGyroCalibrated) {
+		if ((Math.abs(turn) > 0.05) && isGyroCalibrated) {
 			targetHeading = Gyroscope.getInstance().getHeadingContinuous();
 			useTargetHeading = true;
 		}
