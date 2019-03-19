@@ -42,6 +42,7 @@ public class DriveTrain extends Subsystem {
 		System.err.println("Gyro error is: " + error + "Gyro correction is: " + correction);
 		SmartDashboard.putNumber("Gyro error", error);
 		SmartDashboard.putNumber("Gyro correction", correction);
+		SmartDashboard.putNumber("Desired Gyro Heading", tgtHeading);
 		arcadeDrive(spd, correction);
 	}
 	
