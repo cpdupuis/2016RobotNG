@@ -69,7 +69,7 @@ public class NeoDriveCommand extends Command {
 		else {
 			System.err.println("Turn finished "+currentHeading+" targetHeading is "+ targetHeading);
 			currentlyTurning = false;
-			useTargetHeading = true;
+			useTargetHeading = false; //disable gyro
 		}
 		// going straight with gyro
 		if (useTargetHeading) {

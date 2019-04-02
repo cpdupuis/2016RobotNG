@@ -21,6 +21,9 @@ public class DriveTrain extends Subsystem {
 	private Jaguar leftMotor, rightMotor;
 	private DifferentialDrive differentialDrive;
 
+	private boolean boost;
+	private boolean slowTurn;
+
 	public DriveTrain() {
 		
 		leftMotor = new Jaguar(RobotConfig.getInstance().getLeftDriveMotor());
@@ -52,8 +55,34 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void arcadeDrive(double speed, double turn) {
+		if (!this.boost) {
+			if (this.slowTurn) {
+				speed *= 0.3;
+				turn *= 0.3;
+			}
+			else {
+				speed *= 0.6;
+				turn *= 0.8;
+			}
+		}
 		differentialDrive.arcadeDrive(speed, turn);
 
+	}
+
+	public void setBoost(boolean boost) {
+		this.boost = boost;
+	}
+
+	public boolean getBoost() {
+		return this.boost;
+	}
+
+	public void setSlowTurn(boolean slowTurn) {
+		this.slowTurn = slowTurn;
+	}
+
+	public boolean getSlowTurn() {
+		return this.slowTurn;
 	}
 		
 	/**
