@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team3786.robot.commands.drive.NeoBoostCommand;
+import org.usfirst.frc.team3786.robot.commands.drive.NeoSlowTurnCommand;
 
 /**
  *  Tank Drive with an Xbox Controller for Shooter Control
@@ -16,8 +18,11 @@ public class TankDriveWithXboxControl extends UIConfig{
 	private static XboxController secondaryController = null;
 	
 	public static XboxController getPrimaryController() {
-		if (primaryController == null)
+		if (primaryController == null) {
 			primaryController = new XboxController(0);
+			primaryController.buttonBumperRight.whileHeld(new NeoBoostCommand());
+			primaryController.buttonBumperLeft.whileHeld(new NeoSlowTurnCommand());
+		}
 		return primaryController;
 	}
 
