@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team3786.robot.commands.drive.NeoBoostCommand;
+import org.usfirst.frc.team3786.robot.commands.drive.NeoBrakeCommand;
 import org.usfirst.frc.team3786.robot.commands.drive.NeoSlowTurnCommand;
 
 /**
@@ -22,6 +23,7 @@ public class TankDriveWithXboxControl extends UIConfig{
 			primaryController = new XboxController(0);
 			primaryController.buttonBumperRight.whileHeld(new NeoBoostCommand());
 			primaryController.buttonBumperLeft.whileHeld(new NeoSlowTurnCommand());
+			//primaryController.buttonX.whileHeld(new NeoBrakeCommand());
 		}
 		return primaryController;
 	}
