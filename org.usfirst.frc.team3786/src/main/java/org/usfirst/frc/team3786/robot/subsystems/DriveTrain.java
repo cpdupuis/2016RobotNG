@@ -23,6 +23,7 @@ public class DriveTrain extends Subsystem {
 
 	private boolean boost;
 	private boolean slowTurn;
+	private boolean brake;
 
 	public DriveTrain() {
 		
@@ -55,18 +56,34 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void arcadeDrive(double speed, double turn) {
-		if (!this.boost) {
+		/*if (this.brake) {
+			speed *= 0.0;
+			turn *= 0.0;
+		}
+		else */if (!this.boost) {
 			if (this.slowTurn) {
-				speed *= 0.3;
-				turn *= 0.3;
+				speed *= 0.5;
+				turn *= 0.6;
 			}
 			else {
-				speed *= 0.6;
+				speed *= 0.8;
 				turn *= 0.8;
 			}
 		}
+		else {
+			speed *= 1.0;
+			turn *= 1.0;
+		}
 		differentialDrive.arcadeDrive(speed, turn);
 
+	}
+
+	public void setBrake(boolean brake) {
+		this.brake = brake;
+		if(this.brake) {
+			rightMotor.set(0.0);
+			leftMotor.set(0.0);
+		}
 	}
 
 	public void setBoost(boolean boost) {
